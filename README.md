@@ -31,6 +31,8 @@ install packages using **``` pip install package-name ```**
 
 replace the **package name** by **Django**, **opencv-contrib-python**, **numpy** .
 
+Also, make sure you are using python version 3.10 or onwards.
+
 **Step4:** 
 ---
 make a folder named **faceRecognition_data** in the project directory and inside that make a folder named **training_dataset**
