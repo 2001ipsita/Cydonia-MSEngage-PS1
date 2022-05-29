@@ -435,12 +435,12 @@ def attendance_in(request):
             else:
                 id_ = "unknown"
                 confidence = "  {0}%".format(round(100 - confidence))
-            font_=''
-            if id_ != "unknown":
-                font_=id_
+#             font_=''
+#             if id_ != "unknown":
+#                 font_=id_
             cv2.putText(
                         img, 
-                        font_, 
+                        id_, 
                         (x+5,y-5), 
                         font, 
                         1, 
@@ -533,12 +533,12 @@ def attendance_out(request):
             else:
                 id_ = "unknown"
                 confidence = "  {0}%".format(round(100 - confidence))
-            font_=''
-            if id_ != "unknown":
-                font_=id_
+#             font_=''
+#             if id_ != "unknown":
+#                 font_=id_
             cv2.putText(
                         img, 
-                        font_, 
+                        id_, 
                         (x+5,y-5), 
                         font, 
                         1, 
@@ -646,7 +646,7 @@ def view_attendance_staff(request,staff):
     else:
         #print("inside qs is None")
         msg='No records for selected duration.'
-        return render(request,'staff_profile.html', {'message':msg})
+        return render(request,'staff_profile.html', {'user':u,'message':msg})
     
 @login_required
 def attendance_staff_date(request):
@@ -836,7 +836,10 @@ def staff_attendance_percentage_this_week(staff):   #give attendance percentage 
     last_day = first_day + datetime.timedelta(days=7)
     qs1=Present.objects.filter(date__gte=first_day).filter(date__lte=last_day).filter(user=staff).filter(present=True)
     qs2=Present.objects.filter(date__gte=first_day).filter(date__lte=last_day).filter(user=staff)
-    return(round((len(qs1)/len(qs2))*100,2))
+    if len(qs2)==0:
+        return 0
+    else:
+	return(round((len(qs1)/len(qs2))*100,2))
 def staff_attendance_percentage_this_month(staff):    #give attendance percentage of a staff in present week
     first_day=date.today().replace(day=1)
     current_year=date.today().year
@@ -845,5 +848,8 @@ def staff_attendance_percentage_this_month(staff):    #give attendance percentag
     last_day = first_day + datetime.timedelta(days=(no_of_total_days-1))
     qs1=Present.objects.filter(date__gte=first_day).filter(date__lte=last_day).filter(user=staff).filter(present=True)
     qs2=Present.objects.filter(date__gte=first_day).filter(date__lte=last_day).filter(user=staff)
-    return(round((len(qs1)/len(qs2))*100,2))
+    if len(qs2)==0:
+        return 0
+    else:
+	return(round((len(qs1)/len(qs2))*100,2))
     
