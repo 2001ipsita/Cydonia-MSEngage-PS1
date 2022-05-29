@@ -31,7 +31,7 @@ install packages using **``` pip install package-name ```**
 
 replace the **package name** by **Django**, **opencv-contrib-python**, **numpy** .
 
-Also, make sure you are using python version 3.10 or onwards.
+Also, make sure you are using **python version 3.10 or onwards.**
 
 **Step4:** 
 ---
