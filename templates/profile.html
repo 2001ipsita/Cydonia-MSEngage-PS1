@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Customer Page{% endblock %}
+
+{% block content %}
+<div class="row my-4">
+    
+    <div class="col-md-8" style="margin: auto;">
+        <div class="card" >
+            <div class="card-header bg-info text-white">
+                My Profile
+            </div>
+            <div class="row p-3">
+                <div class="col-md-8">
+                    <span class="h4">Porfile Information</span class="h4">
+                        <a class="btn btn-info btn-sm float-right" href="{% url 'profile-update' %}">Edit</a>
+                        <hr>
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Name</th>
+                                <td>{{user.username}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Email</th>
+                                <td>{{user.email}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Phone</th>
+                                <td>{{user.profile.phone}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Address</th>
+                                <td>{{user.profile.address}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <img class="img-thumbnail" src="{{user.profile.image.url}}" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3" style="justify-content:center; align-items: center; margin: auto;" >
+            {% if message_profile %}
+            
+            <marquee class="text-center p-3" direction="up" style="color:rgb(209, 216, 216)">
+                {% for msg in message_profile %}
+                <h5>{{msg}}</h5>
+                {% endfor %}
+            </marquee>
+            
+            {% endif %}
+        </div>
+
+    </div>
+    
+</div>
+
+{% endblock %}

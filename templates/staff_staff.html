@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% block title %}Staff Page{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<p></p>
+
+    
+<p></p>
+<div class="container">
+    <div class="row my-4">
+        <div class="col-md-2" style="display: flex; width:100%; justify-content:center;" >
+            
+                {% if triggered %}
+                    <div class="card card-body">
+                        <h5>See your attendance for any time range</h5>
+                        <hr>
+                        {% if message %}
+                            <h3>{{message}}</h3>
+                        {% endif %}
+                        {% if form %}
+                            <form method="POST">
+                                {% csrf_token %}
+                                {{form|crispy}}
+                                <input class="btn btn-success btn-block" type="submit" value="Add">
+                            </form>
+                        {% endif %}
+                    </div>
+
+                {% else %}
+                    <div id="inner">
+                        
+                        <a class="btn btn-info btn-sm " href="{% url 'attendance-staff-date' %}">Filter by Date</a>
+                    </div>
+                {% endif %}
+                        
+
+        </div>
+        <div class="col-md-10">
+            <div>
+                <a class="btn btn-info btn-sm " href="{% url 'view-month-chart' %}">View Chart</a>
+            </div>
+            <p></p>
+            <table class="table bg-white">
+                <thead class="bg-info">
+                    <tr class="text-white">
+                        <th scope="col" >Staff</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Attendance</th>
+                        <th scope="col">Entry-time</th>
+                        <th scope="col">Exit-time</th>
+                        <th scope="col">Break Hour</th>
+                        
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if qs1 %}
+
+                        {% for staff in qs1 %}
+                        <tr>
+                            
+                            <td>{{staff.user.username}}</td>
+                            <td>{{staff.date}}</td>
+                            {% if staff.present == True %}
+                                <td>present</td>
+                            {% else %}
+                                <td>absent</td>
+                            {% endif %}
+                            {% if staff.time_in %}
+                                <td>{{ staff.time_in }}</td>
+                            {% else %}
+                                <td> - </td>
+                            {% endif %}
+                            {% if staff.time_out %}
+                                <td>{{ staff.time_out }}</td>
+                            {% else %}
+                                <td> - </td>
+                            {% endif %}
+                            <td> {{staff.hours}}</td>
+                            
+                        </tr>   
+                        {% endfor %}
+
+                    {% else %}
+                    
+                        {% if qs2 %}
+
+                            {% for items in qs2 %}
+                            <tr>
+                                
+                                <td>{{items.user.username}}</td>
+                                <td>{{items.date}}</td>
+                                {% if items.present == True %}
+                                    <td>present</td>
+                                {% else %}
+                                    <td>absent</td>
+                                {% endif %}
+                                {% if items.time_in %}
+                                    <td>{{ items.time_in }}</td>
+                                {% else %}
+                                    <td> - </td>
+                                {% endif %}
+                                {% if items.time_out %}
+                                    <td>{{ items.time_out }}</td>
+                                {% else %}
+                                    <td> - </td>
+                                {% endif %}
+                                <td> {{items.hours}}</td>
+                                
+                            </tr>
+ 
+                            {% endfor %}
+                        
+                        {% else %}
+                            {% if not form %}
+                            <div>
+                            <h4>No Attendance Recorded This Month</h4>
+                            </div>
+                            
+                        
+                            {% endif %}
+                        {% endif %}
+                    
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!--End Table-->
+{% endblock %}

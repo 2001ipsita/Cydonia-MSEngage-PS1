@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+{% include 'topnav.html' %}
+
+
+<div class="row my-5" style="display:flex; align-items:center; justify-content:center;">
+    <div class="col-md-5 ">
+        <div class="bg-white">
+            
+                <canvas id="myChart1"  width="400" height="300"></canvas>
+                <script>
+                    var data1 = JSON.parse("{{data1|escapejs}}");
+                    var ctx = document.getElementById('myChart1').getContext('2d');
+                    var myChart1 = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: data1[0][1],
+                    datasets: [{
+                            label: 'Days with high attendance percentage per week',
+                            data: data1[1],
+                            backgroundColor:[
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)'
+                            ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)'
+
+                                ],
+                                    borderWidth: 1,
+                    }]
+                        },
+                    options: {
+                        plugins:{
+                            title:{
+                                text:'Attendance Record of This Month',
+                                display:true
+                            }
+                        },
+                        scales: {
+                            y: {
+                                    grace:'8%',
+                                    beginAtZero: true,
+                                    title:{
+                                    display:true,
+                                    text:'Number of Days with High Attendance'
+                                },
+                                x:{
+                                    grace:'10%'
+                                }
+
+                                
+                                
+                            }
+                        }
+                    }
+                    });
+                </script>
+            
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="bg-white">
+            <canvas id="myChart" width="400" height="300"></canvas>
+            <script>
+                var data2 = JSON.parse("{{data2|escapejs}}");
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data2[0],
+                        datasets: [{
+                            label: 'Present',
+                            data: data2[1],
+                            backgroundColor: 'rgba(75, 192, 192, 1)',
+                                
+    
+                            borderColor: 'rgba(75, 192, 192, 1)',
+
+                    
+                            borderWidth: 1,
+                            minBarLength:2,
+                        },
+                        {
+                            label: 'Absent',
+                            data: data2[2],
+                            backgroundColor:  'rgba(255, 99, 132, 1)',
+    
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                                
+                        
+                            borderWidth: 1,
+                            minBarLength: 2,
+                        }]
+                    },
+                    plugins: [ChartDataLabels],
+                    options: {
+                        barValueSpacing:20,
+                        plugins:{
+                            title:{
+                                text:'Attendance Record of This Week',
+                                display:true
+                            },
+                            datalabels: {
+                                formatter: function(value, context) {
+                                    var index=context.dataIndex;
+                                    var val1=context.chart.data.datasets[0].data[index];
+                                    var val2=context.chart.data.datasets[1].data[index];
+                                    
+                                    
+                                        if (val1===0 & val2===0){
+                                            return "\t\t\t\tNo\nattendance\n\t\t\t\ttaken\n\n\n";
+                                        }
+                                    
+                                    },
+                                anchor:'top',
+                                align:function(context){
+                                    var ind= context.dataIndex;
+                                    if(ind===6){
+                                        return 'left';
+                                    }
+                                    else{
+                                        return 'right';
+                                    }
+                                },
+                                color:'red',
+                                // backgroundColor:'rgba(255, 99, 132, 1)'
+                                display:'auto'
+                            }
+                        },
+                        scales: {
+                            y:{
+                                // beginAtZero: true,
+                                grace:'5%',
+                                title:{
+                                    display:true,
+                                    text:'Number of Students'
+                                }
+                            },
+                                x:{
+                                    title:{
+                                    display:true,
+                                    text:'Days of This Week'
+                                } 
+                                }
+                            }
+                        }
+                    
+                });
+            </script>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

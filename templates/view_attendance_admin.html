@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block title %}Staff Page{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% include 'topnav.html' %}
+    <!--Table-->
+    <div class="container">
+        <div class="row my-4">
+            <div class="col-md-4" style="display: flex; width:100%; justify-content:center; " >
+                
+                    {% if triggered %}
+                        <div class="card card-body">
+                            <h5>Search Here</h5>
+                            <hr>
+                            {% if message %}
+                                <h3>{{message}}</h3>
+                            {% endif %}
+                            {% if form %}
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    {{form|crispy}}
+                                    <input class="btn btn-success btn-block" type="submit" value="Submit">
+                                </form>
+                            {% endif %}
+                        </div>
+
+                    {% else %}
+                        <div id="inner">
+                            <a class="btn btn-info btn-sm " href="{% url 'attendance-admin-username' %}">Filter by Username</a>
+                            <a class="btn btn-info btn-sm " href="{% url 'attendance-admin-date' %}">Filter by Date</a>
+                        </div>
+                    {% endif %}
+                
+            </div>
+            <div class="col-md-8">
+                <table class="table bg-white">
+                    <thead class="bg-info">
+                        <tr class="text-white">
+                            <th scope="col" >Staff</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Attendance</th>
+                            <th scope="col">Entry-time</th>
+                            <th scope="col">Exit-time</th>
+                            <th scope="col">Break Hour</th>
+                            
+                            <th scope="col" style="width:20%">Activity</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if staffs %}
+                            {% for staff in staffs %}
+                            <tr>
+                                
+                                <td>{{staff.user.username}}</td>
+                                <td>{{staff.date}}</td>
+                                {% if staff.present == True %}
+                                    <td>present</td>
+                                {% else %}
+                                    <td>absent</td>
+                                {% endif %}
+                                {% if staff.time_in %}
+                                    <td>{{ staff.time_in }}</td>
+                                {% else %}
+                                    <td> - </td>
+                                {% endif %}
+                                {% if staff.time_out %}
+                                    <td>{{ staff.time_out }}</td>
+                                {% else %}
+                                    <td> - </td>
+                                {% endif %}
+                                <td> {{staff.hours}}</td>
+                                <td>
+
+                                    <a class="btn btn-info btn-sm ml-1" href="{% url 'attendance-delete' staff.user.username staff.date %}">Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                        
+                            {% if qs %}
+                                {% for items in qs %}
+                                <tr>
+                                    
+                                    <td>{{items.user.username}}</td>
+                                    <td>{{items.date}}</td>
+                                    {% if items.present == True %}
+                                        <td>present</td>
+                                    {% else %}
+                                        <td>absent</td>
+                                    {% endif %}
+                                    {% if items.time_in %}
+                                        <td>{{ items.time_in }}</td>
+                                    {% else %}
+                                        <td> - </td>
+                                    {% endif %}
+                                    {% if items.time_out %}
+                                        <td>{{ items.time_out }}</td>
+                                    {% else %}
+                                        <td> - </td>
+                                    {% endif %}
+                                    <td> {{items.hours}}</td>
+                                    <td>
+                                        
+                                        <a class="btn btn-info btn-sm ml-1" href="{% url 'attendance-delete' items.user.username items.date %}">Delete</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                {% if not form %}
+                                {% if not active %}
+                                <h4>No Attendance Recorded Today</h4>
+                                {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!--End Table-->
+{% endblock %}

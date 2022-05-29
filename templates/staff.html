@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Staff Page{% endblock %}
+{% block content %}
+
+    <!--Table-->
+    <div class="container">
+        <div class="row my-4">
+            <div class="col-md-3" style="display: flex; width:100%; justify-content:center;" >
+                
+
+                    
+        
+                    
+                    <div>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div style="display: inline-block;">
+                            <input id="name_email" type="text" name="name_email" placeholder="Search by username or email">
+                            <input class="btn btn-success btn-sm" type="submit" value="Add">
+                        </div>
+                        </form>
+                    </div>
+
+
+                
+            
+            </div>
+            <div class="col-md-9">
+                <table class="table bg-white">
+                    <thead class="bg-info">
+                        <tr class="text-white">
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if message %}
+                        <h6>{{message}}</h6>
+                        {% endif %}
+                        {% if workers %}
+                        {% for worker in workers %}
+                        <tr>
+                            <th scope="row"><a class="btn btn-info btn-sm" href="{% url 'view-profile' worker.username %}">View</a></th>
+                            <td>{{worker.username}}</td>
+                            <td>{{worker.profile.address}}</td>
+                            <td>{{worker.email}}</td>
+                            <td>{{worker.profile.phone}}</td>
+                            <th scope="row"><a class="btn btn-info btn-sm" href="{% url 'delete-profile' worker.username %}">Delete</a></th>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                        {% if qs %}
+                        <tr>
+                            <th scope="row"><a class="btn btn-info btn-sm" href="{% url 'view-profile' qs.username %}">View</a></th>
+                            <td>{{qs.username}}</td>
+                            <td>{{qs.profile.address}}</td>
+                            <td>{{qs.email}}</td>
+                            <td>{{qs.profile.phone}}</td>
+                            <th scope="row"><a class="btn btn-info btn-sm" href="{% url 'delete-profile' qs.username %}">Delete</a></th>
+                        </tr>
+
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!--End Table-->
+{% endblock %}

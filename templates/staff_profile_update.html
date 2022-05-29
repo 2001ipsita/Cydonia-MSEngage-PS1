@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Customer Page{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="row my-4">
+
+    <div class="col-md-8" style="margin: auto;">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                Customer Detail Page
+            </div>
+            <div class="row p-3">
+                <div class="col-md-8">
+                    
+                        
+                    <span class="h4">Porfile Information</span class="h4">
+                    <hr>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{user_form|crispy}}
+                        {{profile_form|crispy}}
+                        <input class="btn btn-success" type="submit" value="Update">
+                    </form>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

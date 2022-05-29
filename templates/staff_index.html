@@ -1,0 +1,78 @@
+<!--Topside-->
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    Student Page
+                </div>
+                <div class="card-body">
+                    <marquee behavior="" direction="">
+                        <h3 class="my-4">Welcome, {{ user.username }}!</h3>
+                    </marquee>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    Statistics
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a class="text-decoration-none text-dark" href="{% url 'staff-staff' %}">
+                                <div class="card my-card shadow text-center p-5">
+                                    <h4>Staff <i class="fas fa-users"></i></h4>
+                                    <h3>4</h3>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <!-- <a class="text-decoration-none text-dark" href="{% url 'add-photo' %}">
+                                <div class="card my-card shadow text-center p-5">
+                                    <h4>Add Photo<i class="fas fa-box"></i></h4>
+                                    
+                                </div>
+                            </a> -->
+                            <div style="margin-bottom: 10px;">
+                                <a class="text-decoration-none text-dark"  href="{% url 'add-photo' %}">
+                                    <div class="card my-card shadow text-center p-0.5">
+                                        <h4>Add Photo <i class="fas fa-shipping-fast"></i></h4>
+
+                                    </div>
+                                </a>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <a class="text-decoration-none text-dark" href="{% url 'delete-photo' %}"  >
+                                    <div class="card my-card shadow text-center p-0.5">
+                                        <h4>Delete Photo <i class="fas fa-shipping-fast"></i></h4>
+
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            {% if messages %}
+                            {% for message in messages%}
+                            <div class="alert alert-{{message.tags}} text-center p-3" > {{message}}
+                            </div>
+
+                            {%endfor %}
+
+                            {%endif%}
+                            <!-- <a class="text-decoration-none text-dark" href="order.html">
+                                <div class="card my-card shadow text-center p-3">
+                                    <h4>Orders <i class="fas fa-shipping-fast"></i></h4>
+                                    <h3>4</h3>
+                                </div>
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Topside-->

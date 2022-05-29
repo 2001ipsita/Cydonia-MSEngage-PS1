@@ -1,0 +1,143 @@
+<!--Topside-->
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+    
+                    Welcome {{user.username}}
+                
+                </div>
+                <div class="card-body">
+                    <marquee behavior="" direction="">
+                        {% if user.is_authenticated and user.is_staff and user.is_superuser %}
+                        <h3 class="my-4">Welcome Admin!</h3>
+                        {% else %}
+                        {% if message %}
+                        {% for msg in message %}
+                        <h3 class="my-4" style="color:indianred">{{msg}}</h3>
+                        {% endfor %}
+                        {% else %}
+                        <h3 class="my-4" style="color:forestgreen">You are Good to go!</h3>
+                        {% endif %}
+                        {%endif%}
+                    </marquee>
+                </div>
+            </div>
+        </div>
+        {% if user.is_authenticated and user.is_staff and user.is_superuser %}
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    Admin's Activity
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a class="text-decoration-none text-dark" href="{% url 'staff' %}">
+                                <div class="card my-card shadow text-center p-5">
+                                    <h4>View<i class="fas fa-users"></i></h4>
+                                    <h5>Staffs' Details</h5>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a class="text-decoration-none text-dark" href="{% url 'attendance-admin' %}">
+                                <div class="card my-card shadow text-center p-5">
+                                    <h4>Staffs'<i class="fas fa-box"></i></h4>
+                                    <h5>Attendance Details</h5>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <div style="margin-bottom: 10px;">
+                                <a class="text-decoration-none text-dark"  href="{% url 'attendance-in' %}">
+                                    <div class="card my-card shadow text-center p-0.5">
+                                        <h4>Take Attendance <i class="fas fa-shipping-fast"></i></h4>
+                                        <h3>In</h3>
+                                    </div>
+                                </a>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <a class="text-decoration-none text-dark" href="{% url 'attendance-out' %}"  >
+                                    <div class="card my-card shadow text-center p-0.5">
+                                        <h4>Take Attendance <i class="fas fa-shipping-fast"></i></h4>
+                                        <h3>Out</h3>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    Staff's Activity
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a class="text-decoration-none text-dark" href="{% url 'staff-staff' %}">
+                                <div class="card my-card shadow text-center p-5">
+                                    <h4>Your<i class="fas fa-users"></i></h4>
+                                    <h5>Attendance Details</h5>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <div style="margin-bottom: 10px;">
+                                <a class="text-decoration-none text-dark"  href="{% url 'add-photo' %}">
+                                    <div class="card my-card shadow text-center p-0.5">
+                                        <h4>Add Photos <i class="fas fa-shipping-fast"></i></h4>
+                                        <h5>for attendance</h5>
+                                    </div>
+                                </a>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <a class="text-decoration-none text-dark" href="{% url 'delete-photo' %}"  >
+                                    <div class="card my-card shadow text-center p-0.5">
+                                        <h4>Delete Photos <i class="fas fa-shipping-fast"></i></h4>
+                                        <h5>to reupload your photos</h5>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            {% if trained %}
+                            <a class="text-decoration-none text-dark" href="{% url 'train-data' %}">
+                                <div class="card my-card shadow text-center p-5">
+                                    <h5>Train the Dataset<i class="fas fa-box"></i></h5>
+                                    {% if messages_ %}
+                                    <h6>
+                                        {{ messages_ }}
+                        
+                                    </h6>
+                                    
+                                    {% endif %}
+
+                                    
+                                </div>
+                            </a>
+                            {% endif %}
+                            {% if messages %}
+                            {% for message in messages%}
+                            <div class="alert alert-{{message.tags}} text-center p-3" > {{message}}
+                            </div>
+
+                            {%endfor %}
+
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<!--End Topside-->

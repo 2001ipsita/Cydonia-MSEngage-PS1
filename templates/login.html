@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %} Login Page {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container" id="login" style="display: none;">
+        <div class="row mt-5">
+            <div class="col-md-6 offset-md-3">
+                <div class="border p-3 bg-white">
+                    <h3>Login</h3>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <input class="btn btn-success" type="submit" value="Login">
+                        <a class="mx-4" href="{% url 'password_reset' %}">Forgot Password?</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container" id="welcome">
+        <div class="row mt-5">
+            <div class="col-md-6 offset-md-3">
+                <div class="border p-3 bg-white">
+                    <marquee class="text-center p-3" direction="up" style="color:rgb(38, 140, 140)">
+                        <h5>Welcome to</h5>
+                        <h4>CYDONIA</h4>
+                        <h6>Smart Attendance System with Face Recognition</h6>
+                        </marquee>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <p></p>
+    <p></p>
+    <div style="justify-content:center; align-items:center; display:flex;">
+    <button type="button" id="hide-button" class="btn-primary">Enter
+    </div>
+    </button>
+{% endblock %}
