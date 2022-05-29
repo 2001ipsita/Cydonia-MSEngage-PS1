@@ -2,7 +2,7 @@
 ---
 **Cydonia** is an online attendance management system for office staffs using Face Recognition.
 
-## [See the video demo here]()
+## [See the video demo here](https://youtu.be/idAOdibLhJE)
 
 # Tech Stack:
 ---
