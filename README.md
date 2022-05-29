@@ -43,7 +43,11 @@ run **``` python manage.py createsuperuser ```** and give username and password.
 
 run  **``` python manage.py makemigrations ```** and then  **``` python manage.py migrate ```**
 
-**Step5:** 
+**Step6:** 
+---
+inside **settings.py** of **faceRecognition_project** folder, change **EMAIL_HOST_USER** and **EMAIL_HOST_PASSWORD** by a existing email account and password of yours.
+
+**Step7:** 
 ---
 
 Finally run   **``` python manage.py runserver ```** to see your website live on your default browser.
