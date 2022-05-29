@@ -12,7 +12,9 @@
 
 **3. Face Recognition:** openCV and its LBPHFaceRecognizer.
 
-**3. Face Detection:** openCV and its Haar Cascades. 
+**4. Face Detection:** openCV and its Haar Cascades.
+
+**5. Database:** Django Administration Database
 
 ---
 # How to run this project?
