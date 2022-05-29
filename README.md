@@ -25,7 +25,7 @@ clone this repository or download the zip file and unzip it in a folder in your 
 
 **Step2:** 
 ---
-create a seperate [python's virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/) in that folder and activate it.
+create a separate [python's virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/) in that folder and activate it.
 
 **Step3:** 
 ---
